@@ -1,0 +1,68 @@
+{% if folder_exist %}
+    {% if not already_in_keeper %}
+    <div class="text-center">
+        <span id="success-message" class="badge text-bg-success">Каталог обнаружен и его можно добавить в хранилище!</span>
+        <span id="success-message-end" class="badge text-bg-success" hidden="">Каталог успешно добавлен в хранилище!</span>
+    </div>
+    <div id="add_table" class="table-responsive p-2">
+        {% csrf_token %}
+        <table class="account-table table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Каталог для наблюдения:</td>
+                    <td class="text-end" scope="row">
+                        <span id="full_path" style="font-size: 16px;" class="badge text-bg-success">{{ full_path }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Уникальное имя объекта хранилища:</td>
+                    <td scope="row">
+                        <input type="text" name="keeper_field" class="form-control" placeholder="Уникальное имя объекта..." id="name_object" required="True" maxlength="30">
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Базовый тип объекта хранилища:</td>
+                    <td scope="row">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+                          {% for elem in based_types %}
+                              <input type="radio" class="btn-check" name="btnradio" id="btnradio-{{elem.id}}" autocomplete="off" {% if forloop.first %} checked {% endif %}>
+                              <label style="font-size: small;" class="btn btn-outline-main" for="btnradio-{{elem.id}}">{{elem.title}}</label>
+                          {% endfor %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">Включить возможность изменения настроек:</td>
+                    <td scope="row">
+                        <input style="width: 20px; height: 20px; margin-top: 0;" class="form-check-input" type="checkbox" name="form-check-input" role="switch" id="changeable_but" checked="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-end" scope="row">
+                      <div style="width: 2rem; height: 2rem; border-width: 0.5em; animation-speed: 0.3s;" id="spinner-add" class="spinner-border text-tosk" role="status" hidden="">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </td>
+                    <td class="text-end" scope="row">
+                        <button id="add_object" class="btn profile-custom-btn"><i class="bi bi-plus-circle me-2"></i>ДОБАВИТЬ ОБЪЕКТ ХРАНИЛИЩА</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center">
+        <span id="fail-message-exist" class="badge text-bg-yellow">Указанный каталог уже в хранилище!</span>
+    </div>
+    {% endif %}
+{% else %}
+<div class="text-center">
+  <span id="fail-message" class="badge text-bg-danger">Указанный каталог не обнаружен!</span>
+</div>
+{% endif %}

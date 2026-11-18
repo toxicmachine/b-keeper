@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+    <div class="row mb-4">
+        {% csrf_token %}
+        {% for elem in all_keeper_objects %}
+        <div class="col-lg-4 col-12 mb-2">
+            <div style="font-size: 12px;" class="custom-block bg-white">
+                <h6 class="text-center">{{ elem.name }}</h6>
+                <div class="tree-container" id="keeper-{{elem.name}}">
+                </div>
+                <div class="text-center">
+                  <div id="spinner-{{elem.name}}" class="spinner-border text-tosk" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="{% static 'pages/js/for-view.js' %}?20250919"></script>
+{% endblock %}

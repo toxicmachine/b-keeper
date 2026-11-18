@@ -1,0 +1,28 @@
+{% if details.children %}
+    <div class="tree-level">
+        <i class="bi bi-folder-fill me-2" style="color: var(--bs-warning); font-size: 1.5em;"></i>
+        <span class="folder-name">{{ item }}
+            {% if show_dir_sizes %}
+                ({{ details.total_size_bytes|filesizeformat }})
+            {% endif %}
+        </span>
+        {% if show_subdirs %}
+            <div class="tree-level">
+                {% for child_key, child_value in details.children.items %}
+                    {% include "pages/directory_item.html" with item=child_key details=child_value show_dir_sizes=show_dir_sizes show_subdirs=show_subdirs show_files=show_files show_file_sizes=show_file_sizes %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% else %}
+    {% if show_files %}
+        <div class="tree-level">
+            <i class="bi bi-file-earmark-fill me-2" style="color: var(--heading-color); font-size: 1.2em;"></i>
+            <span class="file-name">{{ item }}
+                {% if show_file_sizes %}
+                    ({{ details.size_bytes|filesizeformat }})
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% endif %}

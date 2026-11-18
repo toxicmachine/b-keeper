@@ -1,0 +1,11 @@
+<div class="tree">
+    {% for key, value in dir.items %}
+        <div class="item">
+            <strong>{{ key }}</strong>{% if value %}<span>/</span>{% endif %}
+            {% if value %}
+                <!-- Включаем рекурсивно поддерево -->
+                {% include 'pages/dir_tree.html' with dir=value %}
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

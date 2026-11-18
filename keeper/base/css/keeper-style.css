@@ -1,0 +1,44 @@
+.tree-container {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5em;
+}
+
+/* Контейнер каждого уровня дерева */
+.tree-level {
+    padding-left: 20px;
+    position: relative;
+}
+
+/* Линия-пунктир слева от папок */
+.tree-level.folder::before {
+    content: '';
+    border-left: 1px dashed rgba(0, 0, 0, 0.1);
+    height: 100%;
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
+
+/* Цвет и вес текста папок */
+.folder-name {
+    font-weight: bold;
+}
+
+/* Выделяем фон при наведении */
+.tree-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Иконки папок и файлов */
+.icon-folder-open {
+    color: orange;
+}
+
+.icon-file {
+    color: teal;
+}
+
+.text-bg-yellow {
+	color: #000 !important;
+	background-color: RGBA(246, 143, 70, var(--bs-bg-opacity, 1)) !important
+}

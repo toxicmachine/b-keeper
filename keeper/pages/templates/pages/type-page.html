@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+    <div class="row mb-4">
+        <div class="col-lg-12 col-12">
+            <div class="custom-block bg-white">
+                <h5 class="mb-2 ms-2">Базовые типы объектов хранилища с настройками по умолчанию</h5>
+                <div class="table-responsive p-2">
+                    <table class="account-table table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" scope="col">Название типа</th>
+                                <th rowspan="2" scope="col">Варианты</th>
+                                <th colspan="4" scope="colgroup">Настройки отображения</th>
+                                <th colspan="4" scope="colgroup">Настройки ротации</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Отображать размер каталога</th>
+                                <th scope="col">Отображать подкаталоги</th>
+                                <th scope="col">Отображать файлы</th>
+                                <th scope="col">Отображать размер файлов</th>
+                                <th scope="col">Ротация по количеству файлов</th>
+                                <th scope="col">Количество файлов</th>
+                                <th scope="col">Ротация по периоду</th>
+                                <th scope="col">Период</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for elem in based_types %}
+                            <tr>
+                                <td scope="row">{{ elem.title }}</td>
+                                {% if elem.changeable %}
+                                    <td scope="row">Изменяемый и неизменяемый</td>
+                                {% else %}
+                                    <td scope="row">Неизменяемый</td>
+                                {% endif %}
+                                <td scope="row">{{ elem.display_settings.dirs_size }}</td>
+                                <td scope="row">{{ elem.display_settings.subdirs_show }}</td>
+                                <td scope="row">{{ elem.display_settings.files_show }}</td>
+                                <td scope="row">{{ elem.display_settings.files_sizes }}</td>
+                                <td scope="row">{{ elem.rotate_settings.rotate_count_possible }}</td>
+                                <td scope="row">{{ elem.rotate_settings.rotate_count }}</td>
+                                <td scope="row">{{ elem.rotate_settings.rotate_days_possible }}</td>
+                                <td scope="row">{{ elem.rotate_settings.rotate_days }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-lg-12 col-12">
+            <div class="custom-block bg-white">
+                <h5 class="mb-2 ms-2">Обзор настроек объектов хранилища</h5>
+                <div class="table-responsive p-2">
+                    <table class="account-table table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" scope="col">Название объекта</th>
+                                <th rowspan="2" scope="col">Название типа</th>
+                                <th rowspan="2" scope="col">Вариант</th>
+                                <th colspan="4" scope="colgroup">Настройки отображения</th>
+                                <th colspan="4" scope="colgroup">Настройки ротации</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Отображать размер каталога</th>
+                                <th scope="col">Отображать подкаталоги</th>
+                                <th scope="col">Отображать файлы</th>
+                                <th scope="col">Отображать размер файлов</th>
+                                <th scope="col">Ротация по количеству файлов</th>
+                                <th scope="col">Количество файлов</th>
+                                <th scope="col">Ротация по периоду</th>
+                                <th scope="col">Период</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for elem in keeper_objects %}
+                            <tr>
+                                <td scope="row">{{ elem.name }}</td>
+                                <td scope="row">{{ elem.based_type.title }}</td>
+                                {% if elem.option %}
+                                    <td scope="row">Изменяемый</td>
+                                {% else %}
+                                    <td style="max-width: 110px;" scope="row">Неизменяемый</td>
+                                {% endif %}
+                                <td scope="row">{{ elem.display_settings.dirs_size }}</td>
+                                <td scope="row">{{ elem.display_settings.subdirs_show }}</td>
+                                <td scope="row">{{ elem.display_settings.files_show }}</td>
+                                <td scope="row">{{ elem.display_settings.files_sizes }}</td>
+                                <td scope="row">{{ elem.rotate_settings.rotate_count_possible }}</td>
+                                {% if elem.rotate_settings.rotate_count is not None %}
+                                    <td scope="row">{{ elem.rotate_settings.rotate_count }}</td>
+                                {% else %}
+                                    <td scope="row">-</td>
+                                {% endif %}
+                                <td scope="row">{{ elem.rotate_settings.rotate_days_possible }}</td>
+                                {% if elem.rotate_settings.rotate_days is not None %}
+                                    <td scope="row">{{ elem.rotate_settings.rotate_days }}</td>
+                                {% else %}
+                                     <td scope="row">-</td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_scripts %}
+{% endblock %}

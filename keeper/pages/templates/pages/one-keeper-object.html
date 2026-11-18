@@ -1,0 +1,13 @@
+<div class="parent-directory">
+    <i class="bi bi-folder-fill me-2" style="color: var(--bs-warning); font-size: 1.5em;"></i>
+    <span class="folder-name">{{ keeper_object_folder }}
+        {% if show_dir_sizes %}
+            ({{ root_total_size|filesizeformat }})
+        {% endif %}
+    </span>
+</div>
+<div class="tree-level">
+    {% for key, value in structure.items %}
+        {% include "pages/directory_item.html" with item=key details=value is_root_level=True show_dir_sizes=show_dir_sizes show_subdirs=show_subdirs show_files=show_files show_file_sizes=show_file_sizes %}
+    {% endfor %}
+</div>
